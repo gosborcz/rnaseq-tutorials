@@ -1,4 +1,4 @@
-### rnaseq
+### rna-seq
 
 In the scripts folder this repo contains 4 .R with RNAseq data analysis tutorials:
 
@@ -10,4 +10,8 @@ In the scripts folder this repo contains 4 .R with RNAseq data analysis tutorial
 
 In the data folder all the necessary source data are stored
 
+
+### resources:
+
+(thoughts on experimental desing)[https://rnaseq.uoregon.edu/#exp-design]
 
