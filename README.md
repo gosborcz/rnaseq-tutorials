@@ -13,5 +13,5 @@ In the data folder all the necessary source data are stored
 
 ### resources:
 
-(thoughts on experimental desing)[https://rnaseq.uoregon.edu/#exp-design]
+[thoughts on experimental design](https://rnaseq.uoregon.edu/#exp-design)
 
