@@ -3,11 +3,62 @@
 BiocManager::install("preprocessCore", configure.args="--disable-threading")
 
 # the script starts here 
+
 require(plyr)
 require(tidyverse)
 require(preprocessCore)
 
-raw_data <- read_tsv("/rnaseq-tutorials/data/with_ref/salmon.merged.gene_tpm.tsv")
+# This script uses the de_novo data. Again, add your comments
+
+files <- list.files(pattern = "quant.sf.genes", recursive = TRUE)
+
+dfs <- ldply(
+  files,
+  function(dn) data.frame(Filename = dn, read_tsv(dn))
+)
+
+dfs$Filename <- sapply(
+  strsplit(as.character(dfs$Filename), "/"), "[", 3
+)
+
+
+dfs <- pivot_wider(
+  data = dfs,
+  id_cols = c(Name),
+  names_from = Filename,
+  values_from = c("TPM")
+)
+
+
+annots <- read_tsv("data/de_novo/swissprot.blastx.outfmt6",
+  col_names = FALSE
+) %>%
+  `colnames<-`(c(
+    "qseqid",
+    "sseqid",
+    "pident",
+    "length",
+    "mismatch",
+    "gapopen",
+    "qstart",
+    "qend",
+    "sstart",
+    "send",
+    "evalue",
+    "bitscore"
+  ))
+
+annots$qseqid <- str_match(annots$qseqid, "(.*)_i(\\d)+$")[, 2]
+annots$sseqid <- sapply(strsplit(as.character(annots$sseqid), "\\|"), "[", 2)
+  
+annots <- annots %>% distinct(
+  qseqid,
+  .keep_all = TRUE
+)
+
+# Task 1- The gene names we have are not "normal" gene names but uniprot names
+# use the convert_to_gene_names.csv file in data/de_novo to annotate the annots file and then the dfs with human gene names
+
 
 ctrls <- c("H27","H45", "H91", "H74")
 ruptured <- c("H2", "H47", "H56", "H87")
@@ -39,8 +90,7 @@ results <- cbind(results, tpms.log)
 
 # Task 4 - replace rows with tpms.log that have row means < 1
 
-results <- results %>% 
-  filter(rowMeans(results[,sample_info$samples]) > 1)
+
 
 results <- results %>% 
   filter(!is.na(results$gene_names)) %>% 
@@ -60,10 +110,9 @@ one.way <- function(counts) {
 
 # Task 5 apply this function to the log2-transformed tpms
 
-apply(results[,sample_info$sample],
-      1,
-      one.way) %>% 
-  #p.adjust(method = 'fdr') %>%
+
+# your anwer here %>%
+  p.adjust(method = 'fdr') %>%
   cbind(results, .) -> results
 
 colnames(results)[10] <- "FDR"
@@ -76,11 +125,7 @@ results %>%
 
 # Task 6 calculate log2 fold-change (log2FC) for each detected transcript
 
-# Task 7 = perfom an analysis with one-way anova of the results 
-# from the alignment to the reference genome in a separate script
-# are the results different from Edger?
-
-# Task 8* - downolad data from this publication: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7691544/
+# Task 7* - downolad data from this publication: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7691544/
 # raw counts are here: http://149.156.177.112/projects/ifpan-kinga-dieta/cuffnorm/genes.count_table
 # sample info here: http://149.156.177.112/projects/ifpan-kinga-dieta/cuffnorm/samples.table
 # and here: http://149.156.177.112/projects/ifpan-kinga-dieta/analysis/samples-info.csv
