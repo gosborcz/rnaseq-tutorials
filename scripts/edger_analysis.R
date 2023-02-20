@@ -8,10 +8,7 @@ BiocManager::install("edgeR")
 #script starts here, remember to add your comments
 
 require(edgeR)
-require(GO.db)
 require(tidyverse)
-require(org.Hs.eg.db)
-
 
 #Task 1 - read the /rnaseq-tutorials/data/with_ref/salmon.merged.gene_counts.tsv file into R
 
@@ -57,9 +54,8 @@ abline(h=c(-1, 1), col="blue")
 
 # Task 3 - use enrichR (manually or via R) to look for overrepresented pathways in the results
 
-# Task 4 - make a new script edger_analysis_de_novo.R where you will analyse
-# the de novo assembly with edger
-
+# Task 4* - make a new script edger_analysis_de_novo.R where you will analyse
+# the de novo assembly with edger [take a look at the anova_analysis for hints]
 
 # Task 5* - downolad data from this publication: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7691544/
 # raw counts are here: http://149.156.177.112/projects/ifpan-kinga-dieta/cuffnorm/genes.count_table
