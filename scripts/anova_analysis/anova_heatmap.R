@@ -19,7 +19,7 @@ sample_info <- cbind(
   as.data.frame() %>% `colnames<-`(c("samples", "groups")) 
 
 
-#STEP 3 apply filters for plotting - customise this as you with e.g. add log2FC > 0 for upregulated genes only
+#STEP 3 apply filters for plotting - customise this as you wish e.g. add log2FC > 0 for upregulated genes only
 
 to_plot <- results %>% 
   filter(FDR < 0.01) %>% 
@@ -40,7 +40,7 @@ morecols <- colorRampPalette(mypalette)
 group.names <- unique(as.character(sample_info$groups))
 col.labels <- c(rep("", 2), group.names[1], rep(" ", 3),  group.names[2])
 
-#STEP 7 create a function that cuts genes above cetrain threshold to a maximum value
+#STEP 7 create a function that cuts genes above certain threshold to a maximum value
 cut.threshold <- function(x, threshold = 2.5) {
   x[x > threshold] <- threshold
   x[x < -threshold] <- -threshold
