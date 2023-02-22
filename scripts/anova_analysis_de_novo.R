@@ -90,8 +90,6 @@ results <- cbind(results, tpms.log)
 
 # Task 4 - replace rows with tpms.log that have row means < 1
 
-
-
 results <- results %>% 
   filter(!is.na(results$gene_names)) %>% 
   pivot_longer(sample_info$samples,
@@ -117,11 +115,7 @@ one.way <- function(counts) {
 
 colnames(results)[10] <- "FDR"
 
-results %>% 
-  filter(FDR < 0.1) %>% 
-  dplyr::select(gene_names) %>% 
-  distinct() %>% 
-  write.table(row.names = FALSE, quote=FALSE)
+
 
 # Task 6 calculate log2 fold-change (log2FC) for each detected transcript
 
