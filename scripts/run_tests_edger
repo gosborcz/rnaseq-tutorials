@@ -1,0 +1,11 @@
+qlf_treat72 <- glmQLFTest(fit, contrast=my_contrasts[,"treat72"]) %>%
+  topTags(n = Inf)
+qlf_treat72 <- qlf_treat72$table %>% tibble()
+
+qlf_galavsemp <- glmQLFTest(fit, contrast=my_contrasts[,"empvsgaia"]) %>% 
+  topTags(n = Inf)
+qlf_galavsemp <- qlf_galavsemp$table %>% tibble()
+
+qlf_emp24 <- glmQLFTest(fit, contrast=my_contrasts[,"emp24treat"])%>% 
+  topTags(n = Inf)
+qlf_emp24 <- qlf_emp24$table %>% tibble()
