@@ -15,6 +15,6 @@ In the scripts folder this repo contains .R scripts with RNAseq data analysis tu
 
 [genecode file](https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_43/gencode.v43.basic.annotation.gtf.gz)
 
-[volcano plots](https://bioconductor.org/packages/devel/bioc/vignettes/EnhancedVolcano/inst/doc/EnhancedVolcano.htmlhttps://bioconductor.org/packages/devel/bioc/vignettes/EnhancedVolcano/inst/doc/EnhancedVolcano.html)
+[volcano plots](https://bioconductor.org/packages/devel/bioc/vignettes/EnhancedVolcano/inst/doc/EnhancedVolcano.html)
 
 [convert uniprot ids to gene names](https://biit.cs.ut.ee/gprofiler/convert)
